@@ -7,8 +7,8 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "esnext",
-    "target": "esnext",
+    "module": "ESNext",
+    "target": "ES2020",
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
@@ -41,7 +41,10 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "verbatimModuleSyntax": false
+    "verbatimModuleSyntax": false,
+    "outDir": "dist",
+    "esModuleInterop": true,
 
-  }
+  },
+  "include": ["src"]
 }
