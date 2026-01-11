@@ -8,7 +8,7 @@ import {
     getRecents,
     getStoreData
 // @ts-ignore
-} from "./getFromId/getData.ts";
+} from "./getFromId/getData.js";
 
 dotenv.config();
 

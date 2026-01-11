@@ -1,11 +1,10 @@
-import express from "express";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 const key = process.env.STEAM_API_KEY;
 
-function validateSteamId(id: string | undefined, res: express.Response) {
+function validateSteamId(id, res) {
     if (!id) {
         res.status(400).json({ error: "steamid required" });
         return false;
@@ -17,8 +16,8 @@ function validateSteamId(id: string | undefined, res: express.Response) {
     return true;
 }
 
-export async function getProfile(req: express.Request, res: express.Response) {
-    const id = req.query.steamid as string;
+export async function getProfile(req, res) {
+    const id = req.query.steamid;
     if (!validateSteamId(id, res)) return;
 
     try {
@@ -26,7 +25,7 @@ export async function getProfile(req: express.Request, res: express.Response) {
             `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002?key=${key}&steamids=${id}`
         );
         const data = await resp.json();
-        const player = data?.response?.players[0];
+        const player = data?.response?.players?.[0];
 
         if (!player) {
             return res.status(404).json({ error: "profile not found or private" });
@@ -40,8 +39,8 @@ export async function getProfile(req: express.Request, res: express.Response) {
     }
 }
 
-export async function getLibrary(req: express.Request, res: express.Response) {
-    const id = req.query.steamid as string;
+export async function getLibrary(req, res) {
+    const id = req.query.steamid;
     if (!validateSteamId(id, res)) return;
 
     try {
@@ -62,8 +61,8 @@ export async function getLibrary(req: express.Request, res: express.Response) {
     }
 }
 
-export async function getRecents(req: express.Request, res: express.Response) {
-    const id = req.query.steamid as string;
+export async function getRecents(req, res) {
+    const id = req.query.steamid;
     if (!validateSteamId(id, res)) return;
 
     try {
@@ -71,6 +70,7 @@ export async function getRecents(req: express.Request, res: express.Response) {
             `https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=${key}&steamid=${id}`
         );
         const data = await resp.json();
+
         return res.json(data.response || { games: [] });
 
     } catch (err) {
@@ -79,9 +79,9 @@ export async function getRecents(req: express.Request, res: express.Response) {
     }
 }
 
-export async function getAchievements(req: express.Request, res: express.Response) {
-    const id = req.query.steamid as string;
-    const appid = req.query.appid as string;
+export async function getAchievements(req, res) {
+    const id = req.query.steamid;
+    const appid = req.query.appid;
 
     if (!validateSteamId(id, res)) return;
     if (!appid) return res.status(400).json({ error: "appid required" });
@@ -91,6 +91,7 @@ export async function getAchievements(req: express.Request, res: express.Respons
             `https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=${key}&steamid=${id}&appid=${appid}`
         );
         const data = await resp.json();
+
         return res.json(data);
 
     } catch (err) {
@@ -99,8 +100,8 @@ export async function getAchievements(req: express.Request, res: express.Respons
     }
 }
 
-export async function getStoreData(req: express.Request, res: express.Response) {
-    const appid = req.query.appid as string;
+export async function getStoreData(req, res) {
+    const appid = req.query.appid;
     if (!appid) return res.status(400).json({ error: "appid required" });
 
     try {
