@@ -10,6 +10,8 @@
     "module": "ESNext",
     "target": "ES2020",
     "types": [],
+    "allowJs": true,
+    "checkJs": false,
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
