@@ -126,7 +126,7 @@ export async function getStoreData(req, res) {
 export async function getFeatureData(req, res) {
     try {
         const resp = await fetch(
-            'https://store.steampowered.com/api/featuredcategories?cc=ind&l=english'
+            'https://store.steampowered.com/api/featuredcategories?cc=in&l=english'
         );
         const data = await resp.json();
         return res.json(data);
