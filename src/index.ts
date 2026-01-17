@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import {
-    getAchievements,
+    getAchievements, getFeatureData,
     getLibrary,
     getProfile,
     getRecents,
@@ -28,6 +28,7 @@ app.get('/user/profile', getProfile);
 app.get('/user/library', getLibrary)
 app.get('/user/recent', getRecents)
 app.get('/user/achievements', getAchievements)
+app.get('/store/featured', getFeatureData)
 app.get('/store', getStoreData)
 
 const PORT = process.env.PORT || 8080;

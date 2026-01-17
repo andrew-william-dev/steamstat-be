@@ -122,3 +122,17 @@ export async function getStoreData(req, res) {
         res.status(500).json({ error: "STEAM_STORE_API_ERROR" });
     }
 }
+
+export async function getFeatureData(req, res) {
+    try {
+        const resp = await fetch(
+            'https://store.steampowered.com/api/featuredcategories?cc=ind&l=english'
+        );
+        const data = await resp.json();
+        return res.json(data);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "STEAM_STORE_API_ERROR" });
+    }
+}
